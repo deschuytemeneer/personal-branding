@@ -1,0 +1,92 @@
+.hero {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: 6rem;
+}
+
+.hero__title {
+  font-family: var(--font-family-headings);
+  font-size: 6rem;
+  line-height: 0.8;
+  text-transform: uppercase;
+}
+
+.hero__title-highlight {
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+  /*
+  We have a text that's in the vertical center of the "page" (100vh), with an image (a gradient) as
+  a background. This image is higher than the text. Initially, the top of this image should align
+  with the top of the text, but as we scroll the page, the image should also scroll to reveal
+  itself. As the text is about to go offscreen, the _bottom_ of the image should align with the
+  _bottom_ of the text.
+
+  We know that our text will be in the vertical center of our page, which is 100vh. For the sake of
+  simplicity, let's assume that our text takes up about 10% (or 10vh, if you will) of the page. When
+  when scrolled halfway the page, our intersection ratio will be 50%, and only the bottom half of
+  the text will be shown. Scroll a bit further, our intersection ration will be 45%, and our text
+  will just have disappeared from screen.
+
+  If we denote the position our background should be in (0% being aligned at top and 100% being
+  aligned at bottom) by the variable "background-position", we can sum this up as follows:
+
+  +--------------------+-----------------------+
+  | intersection-ratio |  background-position  |
+  +--------------------+-----------------------+
+  |        100%        |          0%           |
+  |         45%        |         100%          |
+  +--------------------+-----------------------+
+
+  Using simple linear regression, this gives us the following function:
+  */
+
+  --background-position: calc(-1.818 * var(--intersection-ratio, 1) + 1.818);
+
+  /*
+  How many times higher than our text the gradient image should be. The higher this number, the more
+  exaggerated the scrolling effect will be.
+  */
+  --background-height-factor: 8;
+
+  background-color: var(--color-accent-3);
+  background-image: var(--gradient-accent);
+  background-repeat: no-repeat;
+  background-size: auto calc(100% * var(--background-height-factor));
+  background-position-x: 50%;
+  background-position-y: calc(100% * var(--background-position));
+}
+
+.hero__image {
+  justify-self: center;
+  margin-left: -8rem;
+  margin-top: -1rem;
+  z-index: 1;
+  overflow: hidden;
+  max-width: 500px;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    --max-hero-width: 320px;
+
+    display: grid;
+    grid-template-columns: 1fr minmax(var(--max-hero-width), 61.8%);
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .hero__title {
+    grid-area: 1 / 2;
+    align-self: center;
+  }
+
+  .hero__image {
+    grid-area: 1 / 2;
+    align-self: center;
+    max-width: 80%;
+  }
+}

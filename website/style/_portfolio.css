@@ -1,0 +1,199 @@
+.portfolio-item {
+  --transition-speed-title: var(--transition-speed-moderate);
+  --transition-speed-description: var(--transition-speed-moderate);
+  --transition-speed-read-more: var(--transition-speed-moderate);
+  --transition-speed-read-more-arrows: var(--transition-speed-fast);
+
+  display: grid;
+  grid-template:
+    "client" min-content
+    "title" min-content
+    "tags" min-content
+    "image" min-content
+    "description" min-content
+    "read-more" min-content
+    / 1fr;
+  gap: 0.5rem;
+}
+
+.portfolio-item[data-is-open] {
+  --description-height: 1fr;
+}
+
+.portfolio-item.portfolio-item--flipped .portfolio-item__content {
+  order: -1;
+}
+
+.portfolio-item__image {
+  grid-area: image;
+  justify-self: center;
+  align-self: center;
+  padding-block: 1rem;
+  max-width: 480px;
+}
+
+.portfolio-item__title {
+  grid-area: title;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  transition: font-size var(--transition-speed-title) ease-in;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-item__client {
+  grid-area: client;
+  color: var(--color-dark-grey);
+}
+
+.portfolio-item__description {
+  grid-area: description;
+  margin-top: 1rem;
+
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-speed-description) ease-out;
+}
+
+.portfolio-item__description > * {
+  overflow: hidden;
+}
+
+.portfolio-item[data-is-open] .portfolio-item__description {
+  grid-template-rows: 1fr;
+}
+
+.portfolio-item__read-more-button {
+  grid-area: read-more;
+
+  height: 2rem;
+  text-align: left;
+  font-style: italic;
+  color: var(--base-text-color);
+}
+
+.portfolio-item__read-more-button-label {
+  --arrow-width: 30px;
+
+  left: 0;
+  position: relative;
+  display: inline-block;
+  transition: left ease-out var(--transition-speed-read-more);
+}
+
+.portfolio-item__read-more-button-label-alternative {
+  position: absolute;
+  visibility: hidden;
+}
+
+.portfolio-item__read-more-button-label::before,
+.portfolio-item__read-more-button-label::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: var(--arrow-width);
+  background: url("arrow.svg") no-repeat;
+  background-position: 0 75%;
+  position: absolute;
+  transition: margin-left ease-out var(--transition-speed-read-more-arrows);
+}
+
+.portfolio-item__read-more-button-label::before {
+  transform: rotate(180deg);
+  background-position: 0 25%;
+  left: calc(-1 * var(--arrow-width));
+  visibility: hidden;
+}
+
+.portfolio-item__read-more-button:hover .portfolio-item__read-more-button-label::after {
+  margin-left: 1rem;
+}
+
+.portfolio-item__read-more-button:hover .portfolio-item__read-more-button-label::before {
+  margin-left: -1rem;
+}
+
+.portfolio-item[data-is-open] .portfolio-item__read-more-button-label {
+  left: calc(100% - var(--calculated-text-width));
+}
+
+.portfolio-item[data-is-open] .portfolio-item__read-more-button-label::before {
+  visibility: initial;
+}
+
+.portfolio-item[data-is-open] .portfolio-item__read-more-button-label::after {
+  visibility: hidden;
+}
+
+.portfolio-item__tags {
+  grid-area: tags;
+  display: flex;
+  padding: 0;
+  gap: 0.5rem;
+}
+
+.portfolio-item__tag {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 0.375rem;
+  background-color: var(--color-dark-grey);
+  color: var(--color-light-grey);
+  border-radius: 6px;
+}
+
+@media (min-width: 600px) {
+  .portfolio-item[data-is-open] .portfolio-item__title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .portfolio-item:not([data-is-open]) .portfolio-item__title {
+    font-size: 2.5rem;
+  }
+
+  .portfolio-item__client {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-item {
+    grid-template:
+      "image .          " auto
+      "image client     " auto
+      "image title      " auto
+      "image tags       " auto
+      "image description" auto
+      "image read-more  " auto
+      "image .          " auto
+      / 1fr 1fr;
+  }
+
+  .portfolio-item--flipped {
+    grid-template:
+      ".            image" auto
+      "client       image" auto
+      "title        image" auto
+      "tags         image" auto
+      "description  image" auto
+      "read-more    image" auto
+      ".            image" auto
+      / 1fr 1fr;
+  }
+
+  /* .portfolio-item[data-is-open] .portfolio-item__title {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+
+  .portfolio-item:not([data-is-open]) .portfolio-item__title {
+    font-size: 2.5rem;
+  } */
+
+  .portfolio-item__image {
+    padding-block: 6rem;
+    padding-inline: 2rem;
+  }
+}
