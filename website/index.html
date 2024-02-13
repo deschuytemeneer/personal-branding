@@ -14,14 +14,9 @@
     <script defer type="module" src="script/index.js"></script>
   </head>
   <body>
-    <!--
-    // https://www.functionandform.co.uk/
-    // https://marielaurent.fr/
-    // https://stefivanov.com/
-    -->
     <main>
-      <!-- <section id="hero" class="page" data-observe-page-scroll>
-        <div class="hero">
+      <section id="hero" class="page" data-in-view-trigger="store-ratio-as-css-var">
+        <div class="page__content hero">
           <div class="hero__image">
             <img src="resources/my-face.png" alt="An illustration of my face" />
           </div>
@@ -36,7 +31,7 @@
       </section>
 
       <section id="about-me" class="page">
-        <div class="about-me">
+        <div class="page__content page__content--is-centered about-me">
           <h1 class="about-me__title">Hi. I'm Kenny.</h1>
           <div class="about-me__body">
             <p>
@@ -48,96 +43,104 @@
               My philosophy regarding code is "leave it better than you find it". In this
               ever-evolving world, why leave old code stale and dusty? I'll gladly use my expertise
               to take that old, outdated code and polish it up, making it all nice and
-              <strong class="--animated-gradient">shiny</strong>
-              again.
+              <strong>shiny</strong> again.
             </p>
           </div>
         </div>
-      </section> -->
-
-      <section id="portfolio" class="page --space-evenly">
-        <h1 class="page__title">Portfolio</h1>
-
-        <article class="portfolio-item">
-          <div class="portfolio-item__image">
-            <img
-              src="resources/portfolio-showcase-saxpress.png"
-              alt="A desktop screen and a mobile screen, both showing a portfolio website" />
-          </div>
-          <h2 class="portfolio-item__title">
-            A collaborative diagramming tool for Solution Architects
-          </h2>
-          <h3 class="portfolio-item__client">JnJ</h3>
-          <div class="portfolio-item__description">
-            <div class="--space-evenly">
-              <p>
-                I was hired as a front end web developer to implement a greenfield solution for an
-                internal collaborative diagramming tool for JnJ. The project started out as a
-                ReactJS front end with a NestJS back end running on an AWS Lambda. We chose GraphQL
-                as our design of choice for our API.
-              </p>
-              <p>
-                In a late stage of the project, we ran into performance concerns due to the
-                monolithic nature of the NestJS app, so we invested in a refactoring of the whole
-                back end to a more decoupled approach, over multiple Lambda's as opposed to one.
-                This is to this day still one of the most ambitious yet satisfying back end projects
-                I've taken on.
-              </p>
-            </div>
-          </div>
-          <button class="portfolio-item__read-more-button --button-reset">
-            <span class="portfolio-item__read-more-button-label-alternative">Read less.</span>
-            <span class="portfolio-item__read-more-button-label">Read more.</span>
-          </button>
-          <ul class="portfolio-item__tags">
-            <li class="portfolio-item__tag">ReactJS</li>
-            <li class="portfolio-item__tag">AWS Lambda</li>
-            <li class="portfolio-item__tag">Typescript</li>
-            <li class="portfolio-item__tag">NestJS</li>
-          </ul>
-        </article>
-
-        <article class="portfolio-item portfolio-item--flipped">
-          <div class="portfolio-item__image">
-            <img
-              src="resources/portfolio-showcase-roel.png"
-              alt="A desktop screen and a mobile screen, both showing a portfolio website" />
-          </div>
-          <h2 class="portfolio-item__title">Portfolio Website for a Composer</h2>
-          <div class="portfolio-item__description">
-            <div class="--space-evenly">
-              <p>
-                In 2023, I built a portfolio for a friend of mine, who is a composer. He had made a
-                rough design with wix, which I then converted into a "proper" website. As he wanted
-                to be able to add, modify and delete content at any point in the future, I decided
-                on a CMS approach. Additionally, we settled for a headless CMS both liked the
-                decoupling of the content from the design, which was pretty set in stone anyway.
-              </p>
-              <p>
-                In the end, I decided on Contentful as a CMS. I built the front end using Gatsby,
-                since I liked the integration it provided with Contentful. I had also recently
-                learned of chakra-ui, and the "utility-based" components and well thought out
-                theming system seemed like a good fit for this project.
-              </p>
-            </div>
-          </div>
-          <button class="portfolio-item__read-more-button --button-reset">
-            <span class="portfolio-item__read-more-button-label-alternative">Read less.</span>
-            <span class="portfolio-item__read-more-button-label">Read more.</span>
-          </button>
-          <ul class="portfolio-item__tags">
-            <li class="portfolio-item__tag">Gatsby</li>
-            <li class="portfolio-item__tag">Contentful</li>
-            <li class="portfolio-item__tag">chakra-ui</li>
-          </ul>
-        </article>
       </section>
 
-      <!-- <section id="contact-me" class="page">
-        <div class="contact-me">
-          <h1>Let's build something awesome together.</h1>
+      <section id="portfolio" class="page">
+        <div class="page__content --space-evenly-double">
+          <h1 class="portfolio-heading">Portfolio</h1>
+          <dmr-drawer class="portfolio-item">
+            <div class="portfolio-item__image">
+              <img
+                src="resources/portfolio-showcase-saxpress.png"
+                alt="A desktop screen and a mobile screen, both showing a portfolio website" />
+            </div>
+            <h2 class="portfolio-item__title">
+              A collaborative diagramming tool for Solution Architects
+            </h2>
+            <h3 class="portfolio-item__client">JnJ</h3>
+            <div class="portfolio-item__description">
+              <div class="--space-evenly">
+                <p>
+                  I was hired as a front end web developer to implement a greenfield solution for an
+                  internal collaborative diagramming tool for JnJ. The project started out as a
+                  ReactJS front end with a NestJS back end running on an AWS Lambda. We chose
+                  GraphQL as our design of choice for our API.
+                </p>
+                <p>
+                  In a late stage of the project, we ran into performance concerns due to the
+                  monolithic nature of the NestJS app, so we invested in a refactoring of the whole
+                  back end to a more decoupled approach, over multiple Lambda's as opposed to one.
+                  This is to this day still one of the most ambitious yet satisfying back end
+                  projects I've taken on.
+                </p>
+              </div>
+            </div>
+            <dmr-toggle class="portfolio-item__read-more-toggle">
+              <span class="portfolio-item__read-more-toggle-on-label">Read more.</span>
+              <span class="portfolio-item__read-more-toggle-off-label">Read less.</span>
+            </dmr-toggle>
+            <ul class="portfolio-item__tags">
+              <li class="portfolio-item__tag">ReactJS</li>
+              <li class="portfolio-item__tag">AWS Lambda</li>
+              <li class="portfolio-item__tag">Typescript</li>
+              <li class="portfolio-item__tag">NestJS</li>
+            </ul>
+          </dmr-drawer>
+
+          <dmr-drawer class="portfolio-item portfolio-item--flipped">
+            <div class="portfolio-item__image">
+              <img
+                src="resources/portfolio-showcase-roel.png"
+                alt="A desktop screen and a mobile screen, both showing a portfolio website" />
+            </div>
+            <h2 class="portfolio-item__title">Portfolio Website for a Composer</h2>
+            <div class="portfolio-item__description">
+              <div class="--space-evenly">
+                <p>
+                  In 2023, I built a portfolio for a friend of mine, who is a composer. He had made
+                  a rough design with wix, which I then converted into a "proper" website. As he
+                  wanted to be able to add, modify and delete content at any point in the future, I
+                  decided on a CMS approach. Additionally, we settled for a headless CMS both liked
+                  the decoupling of the content from the design, which was pretty set in stone
+                  anyway.
+                </p>
+                <p>
+                  In the end, I decided on Contentful as a CMS. I built the front end using Gatsby,
+                  since I liked the integration it provided with Contentful. I had also recently
+                  learned of chakra-ui, and the "utility-based" components and well thought out
+                  theming system seemed like a good fit for this project.
+                </p>
+              </div>
+            </div>
+            <dmr-toggle class="portfolio-item__read-more-toggle">
+              <span class="portfolio-item__read-more-toggle-on-label">Read more.</span>
+              <span class="portfolio-item__read-more-toggle-off-label">Read less.</span>
+            </dmr-toggle>
+            <ul class="portfolio-item__tags">
+              <li class="portfolio-item__tag">Gatsby</li>
+              <li class="portfolio-item__tag">Contentful</li>
+              <li class="portfolio-item__tag">chakra-ui</li>
+            </ul>
+          </dmr-drawer>
         </div>
-      </section> -->
+      </section>
+
+      <!-- https://htmlburger.com/blog/website-footer/ -->
+      <!-- https://htmlburger.com/blog/modern-contact-us-page-examples/ -->
+      <!-- https://qodeinteractive.com/magazine/examples-of-contact-page-design/ -->
+
+      <section id="contact-me" class="page">
+        <div class="page__fullwidth contact-me" data-in-view-trigger="in-full-view-delayed">
+          <div class="contact-me__box">
+            <div style="height: 800px;"></div>
+          </div>
+          <div class="contact-me__graphic"></div>
+        </div>
+      </section>
     </main>
   </body>
 </html>

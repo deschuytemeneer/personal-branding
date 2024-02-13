@@ -1,12 +1,22 @@
 .hero {
-  display: flex;
-  flex-direction: column-reverse;
-  margin-top: 6rem;
+  --hero-title-font-size: 7em;
+  --hero-image-max-size: 600px;
+  --hero-image-scale: 1.3;
+  --hero-image-offset-x: 40px;
+  --hero-image-offset-y: calc(var(--hero-title-font-size) / 2);
+
+  display: grid;
+  grid-template:
+    "image title" 1fr
+    / 0.8fr 1.2fr;
+  align-items: center;
 }
 
 .hero__title {
+  grid-area: title;
+  justify-self: flex-start;
   font-family: var(--font-family-headings);
-  font-size: 6rem;
+  font-size: var(--hero-title-font-size);
   line-height: 0.8;
   text-transform: uppercase;
 }
@@ -61,32 +71,42 @@
 }
 
 .hero__image {
-  justify-self: center;
-  margin-left: -8rem;
-  margin-top: -1rem;
-  z-index: 1;
-  overflow: hidden;
-  max-width: 500px;
+  grid-area: image;
+  justify-self: flex-end;
+  transform-origin: center right;
+  transform: translate(var(--hero-image-offset-x), var(--hero-image-offset-y))
+    scale(var(--hero-image-scale));
+  max-width: var(--hero-image-max-size);
 }
 
-@media (min-width: 1024px) {
+/* Screens where we can't display our hero and text next to eachother. */
+@media (max-width: 1024px) {
   .hero {
-    --max-hero-width: 320px;
+    --hero-image-offset-x: -60px;
+    --hero-image-offset-y: calc(-1 * (var(--hero-title-font-size) / 3));
+    --hero-image-scale: 1;
 
-    display: grid;
-    grid-template-columns: 1fr minmax(var(--max-hero-width), 61.8%);
-    height: 100%;
-    margin-top: 0;
+    grid-template:
+      "title" 1.2fr
+      "image" 0.8fr
+      / 1fr;
   }
 
   .hero__title {
-    grid-area: 1 / 2;
-    align-self: center;
+    justify-self: center;
+    align-self: flex-end;
   }
 
   .hero__image {
-    grid-area: 1 / 2;
-    align-self: center;
-    max-width: 80%;
+    justify-self: center;
+    transform-origin: top center;
+  }
+}
+
+@media (min-width: 1920px) {
+  .hero {
+    --hero-image-scale: 1.4;
+    --hero-title-font-size: 9em;
+    --hero-image-offset-y: calc(var(--hero-title-font-size) / 2);
   }
 }

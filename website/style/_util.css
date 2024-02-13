@@ -1,0 +1,7 @@
+.--space-evenly > * + * {
+  margin-top: 1rem;
+}
+
+.--space-evenly-double > * + * {
+  margin-top: 2rem;
+}

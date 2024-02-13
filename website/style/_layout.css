@@ -1,0 +1,33 @@
+.page {
+  --content-margin: minmax(5vw, 2rem);
+  --content-width: calc(100vw - (2 * var(--content-margin)));
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns:
+    [grid-start]
+    var(--content-margin)
+    [content-start]
+    auto
+    [content-end]
+    var(--content-margin)
+    [grid-end];
+}
+
+.page__content {
+  grid-column: content;
+}
+
+.page__content--is-centered {
+  align-self: center;
+}
+
+.page__fullwidth {
+  grid-column: grid;
+}
+
+@media (min-width: 1920px) {
+  .page {
+    --content-margin: 10vw;
+  }
+}

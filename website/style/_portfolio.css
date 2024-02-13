@@ -1,3 +1,18 @@
+.portfolio-heading {
+  font-family: var(--font-family-headings);
+  text-transform: uppercase;
+  font-size: 4.5em;
+  color: var(--color-dark-grey);
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 600px) {
+  .portfolio-heading {
+    font-size: 7.5em;
+    margin-bottom: 6rem;
+  }
+}
+
 .portfolio-item {
   --transition-speed-title: var(--transition-speed-moderate);
   --transition-speed-description: var(--transition-speed-moderate);
@@ -13,10 +28,10 @@
     "description" min-content
     "read-more" min-content
     / 1fr;
-  gap: 0.5rem;
+  gap: 0 2rem;
 }
 
-.portfolio-item[data-is-open] {
+.portfolio-item[opened] {
   --description-height: 1fr;
 }
 
@@ -29,21 +44,20 @@
   justify-self: center;
   align-self: center;
   padding-block: 1rem;
-  max-width: 480px;
 }
 
 .portfolio-item__title {
   grid-area: title;
   font-weight: 700;
   font-size: 1.5rem;
-  line-height: 1.2;
+  line-height: 1.1;
   transition: font-size var(--transition-speed-title) ease-in;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .portfolio-item__client {
   grid-area: client;
-  color: var(--color-dark-grey);
+  color: var(--color-grey);
 }
 
 .portfolio-item__description {
@@ -59,70 +73,76 @@
   overflow: hidden;
 }
 
-.portfolio-item[data-is-open] .portfolio-item__description {
+.portfolio-item[opened] .portfolio-item__description {
   grid-template-rows: 1fr;
 }
 
-.portfolio-item__read-more-button {
+.portfolio-item__read-more-toggle {
+  --label-arrow-width: 30px;
+  --label-arrow-spacing: 0;
+
   grid-area: read-more;
 
-  height: 2rem;
-  text-align: left;
-  font-style: italic;
-  color: var(--base-text-color);
+  display: grid;
+  transition: grid-template-columns ease-out var(--transition-speed-read-more);
+  margin-top: 1rem;
 }
 
-.portfolio-item__read-more-button-label {
-  --arrow-width: 30px;
+.portfolio-item__read-more-toggle[toggled-on] {
+  grid-template-columns: 1fr auto auto 0fr;
+}
 
-  left: 0;
+.portfolio-item__read-more-toggle[toggled-off] {
+  grid-template-columns: 0fr auto auto 1fr;
+}
+
+.portfolio-item__read-more-toggle-on-label {
+  grid-area: 1 / 2;
+}
+
+.portfolio-item__read-more-toggle-off-label {
+  grid-area: 1 / 3;
+}
+
+.portfolio-item__read-more-toggle-on-label,
+.portfolio-item__read-more-toggle-off-label {
   position: relative;
-  display: inline-block;
-  transition: left ease-out var(--transition-speed-read-more);
 }
 
-.portfolio-item__read-more-button-label-alternative {
-  position: absolute;
-  visibility: hidden;
-}
-
-.portfolio-item__read-more-button-label::before,
-.portfolio-item__read-more-button-label::after {
+.portfolio-item__read-more-toggle-on-label::after,
+.portfolio-item__read-more-toggle-off-label::after {
   content: "";
   display: inline-block;
   height: 100%;
-  width: var(--arrow-width);
+  width: var(--label-arrow-width);
+  position: absolute;
   background: url("arrow.svg") no-repeat;
   background-position: 0 75%;
-  position: absolute;
-  transition: margin-left ease-out var(--transition-speed-read-more-arrows);
+  transition: margin-left var(--transition-speed-read-more-arrows);
 }
 
-.portfolio-item__read-more-button-label::before {
-  transform: rotate(180deg);
-  background-position: 0 25%;
-  left: calc(-1 * var(--arrow-width));
+.portfolio-item__read-more-toggle-off-label::after {
+  transform: scaleX(-1);
+  left: calc(-1 * var(--label-arrow-width));
+  margin-left: calc(-1 * var(--label-arrow-spacing));
+}
+
+.portfolio-item__read-more-toggle-on-label::after {
+  margin-left: var(--label-arrow-spacing);
+}
+
+.portfolio-item__read-more-toggle:hover {
+  --label-arrow-spacing: 1rem;
+}
+
+.portfolio-item__read-more-toggle[toggled-on] .portfolio-item__read-more-toggle-on-label,
+.portfolio-item__read-more-toggle[toggled-off] .portfolio-item__read-more-toggle-off-label {
   visibility: hidden;
 }
 
-.portfolio-item__read-more-button:hover .portfolio-item__read-more-button-label::after {
-  margin-left: 1rem;
-}
-
-.portfolio-item__read-more-button:hover .portfolio-item__read-more-button-label::before {
-  margin-left: -1rem;
-}
-
-.portfolio-item[data-is-open] .portfolio-item__read-more-button-label {
-  left: calc(100% - var(--calculated-text-width));
-}
-
-.portfolio-item[data-is-open] .portfolio-item__read-more-button-label::before {
-  visibility: initial;
-}
-
-.portfolio-item[data-is-open] .portfolio-item__read-more-button-label::after {
-  visibility: hidden;
+.portfolio-item__read-more-toggle[toggled-off] .portfolio-item__read-more-toggle-on-label,
+.portfolio-item__read-more-toggle[toggled-on] .portfolio-item__read-more-toggle-off-label {
+  visibility: visible;
 }
 
 .portfolio-item__tags {
@@ -135,7 +155,7 @@
 .portfolio-item__tag {
   box-sizing: border-box;
   display: inline;
-  font-size: 0.65rem;
+  font-size: 0.65em;
   font-weight: bold;
   padding: 0.375rem;
   background-color: var(--color-dark-grey);
@@ -143,26 +163,18 @@
   border-radius: 6px;
 }
 
-@media (min-width: 600px) {
-  .portfolio-item[data-is-open] .portfolio-item__title {
-    font-size: 1.5rem;
-    line-height: 1.3;
-  }
-
-  .portfolio-item:not([data-is-open]) .portfolio-item__title {
-    font-size: 2.5rem;
-  }
-
-  .portfolio-item__client {
-    font-size: 1.5rem;
+@media (max-width: 1200px) {
+  .portfolio-item__image {
+    max-width: 600px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .portfolio-item {
+    gap: 0.5rem 2rem;
     grid-template:
       "image .          " auto
-      "image client     " auto
+      "image client     " minmax(0, auto)
       "image title      " auto
       "image tags       " auto
       "image description" auto
@@ -174,7 +186,7 @@
   .portfolio-item--flipped {
     grid-template:
       ".            image" auto
-      "client       image" auto
+      "client       image" minmax(0, auto)
       "title        image" auto
       "tags         image" auto
       "description  image" auto
@@ -183,14 +195,17 @@
       / 1fr 1fr;
   }
 
-  /* .portfolio-item[data-is-open] .portfolio-item__title {
-    font-size: 2rem;
-    line-height: 1.3;
+  .portfolio-item__client {
+    font-size: 1.5em;
   }
 
-  .portfolio-item:not([data-is-open]) .portfolio-item__title {
-    font-size: 2.5rem;
-  } */
+  .portfolio-item__title {
+    font-size: 2.5em;
+  }
+
+  .portfolio-item[opened] .portfolio-item__title {
+    font-size: 1.5em;
+  }
 
   .portfolio-item__image {
     padding-block: 6rem;

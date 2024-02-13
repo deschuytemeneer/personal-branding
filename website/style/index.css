@@ -1,4 +1,8 @@
 @import url(./_reset.css);
 @import url(./_base.css);
+@import url(./_layout.css);
 @import url(./_hero.css);
+@import url(./_about-me.css);
 @import url(./_portfolio.css);
+@import url(./_contact-me.css);
+@import url(./_util.css);

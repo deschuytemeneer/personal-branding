@@ -1,0 +1,27 @@
+.about-me {
+  background: url("../resources/box-background-1.svg") no-repeat center / 100% 100%;
+  padding: 6em 2em;
+}
+
+.about-me__title {
+  font-family: var(--font-family-headings);
+  font-size: 4em;
+  color: var(--color-dark);
+  text-align: center;
+  margin-block-end: 2rem;
+}
+
+.about-me__body {
+  --min-text-width: 34ch;
+  --gap-size: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-size);
+  max-width: calc((2 * var(--min-text-width)) + var(--gap-size));
+  margin: 0 auto;
+}
+
+.about-me__body > * {
+  flex: 1 1 var(--min-text-width);
+}

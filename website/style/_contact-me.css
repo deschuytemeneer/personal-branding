@@ -1,0 +1,55 @@
+.contact-me {
+  --graphic-padding: 32px;
+  --graphic-vertical-spacing: 8px;
+  --graphic-pattern-height: 48px;
+  --graphic-pattern-alternate-offset: -54px;
+
+  height: 100%;
+  background: var(--gradient-accent);
+  display: grid;
+  grid-template-rows: 1fr 0;
+  transition: grid-template-rows var(--transition-speed-slow) ease-out;
+}
+
+.contact-me[data-delayed-in-full-view-triggered] {
+  grid-template-rows: 1fr calc(
+      var(--graphic-padding) + (2 * var(--graphic-pattern-height) + var(--graphic-vertical-spacing))
+    );
+}
+
+.contact-me__box {
+  background: var(--color-dark);
+}
+
+.contact-me__graphic {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-me__graphic::before,
+.contact-me__graphic::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: var(--graphic-pattern-height);
+  background: url("../resources/logo.svg") repeat-x center bottom / auto
+    var(--graphic-pattern-height);
+}
+
+.contact-me__graphic::before {
+  bottom: 0;
+}
+
+.contact-me__graphic::after {
+  bottom: calc(var(--graphic-pattern-height) + var(--graphic-vertical-spacing));
+  left: var(--graphic-pattern-alternate-offset);
+}
+
+@media (max-width: 1024px) {
+  .contact-me {
+    --graphic-padding: 16px;
+    --graphic-vertical-spacing: 4px;
+    --graphic-pattern-height: 32px;
+    --graphic-pattern-alternate-offset: -34px;
+  }
+}
